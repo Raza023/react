@@ -1,0 +1,1699 @@
+Lecture 1 & 2 & 3  (Getting started)
+--------------------------(step 1)--------------------------
+Install node.js with built-in npm
+
+node.js is run time evironment for js.
+and npm is node package manager.
+
+------checking Installations-------
+C:\WINDOWS\system32>node --version
+v16.13.1
+
+C:\WINDOWS\system32>node -v
+v16.13.1
+
+C:\WINDOWS\system32>npm -v
+8.1.2
+
+C:\WINDOWS\system32>cls (screen cleared)
+
+--------------------------(step 2)--------------------------
+Now install the create-react-app package globally using Node.js and now no need to Install it again:
+
+C:\WINDOWS\system32>npm install -g create-react-app
+
+C:\WINDOWS\system32>create-react-app --version
+5.0.1
+
+--------------------------(step 3)--------------------------
+Create react app from any project folder.
+
+But first make sure to have enough Time-out or increase it by following commands:
+or get help(https://stackoverflow.com/questions/67657599/npm-err-code-err-socket-timeout-on-creating-new-project-using-ng-new-appname)
+C:\Users\DELL\Desktop\React\1) firstApp>npm config set fetch-retry-mintimeout 20000
+C:\Users\DELL\Desktop\React\1) firstApp>npm config set fetch-retry-maxtimeout 120000
+
+C:\Users\DELL\Desktop\React\1) firstApp>create-react-app myapp
+C:\Users\DELL\Desktop\React\1) firstApp>cd myapp
+C:\Users\DELL\Desktop\React\1) firstApp\myapp>npm start
+C:\Users\DELL\Desktop\React\1) firstApp\myapp>ctrl+c (to terminate)
+
+----------------------------------------------------------------------------------------------
+Lecture 4 (Directory Structure)
+1)
+package.json contains all the dependencies(package versions) of packages or contains the description of our app.
+2)
+>node_modeules contains libraries or packages that help us to get into the act with much easier way.
+also contains predifined functions we can just call to work with.
+3)In public
+index.html is main file
+manifest is used to create pwa(progresive web app that is used to create 'add to home screen' feature for us).
+
+3)src is the main file:
+index.js (import and call components here.)
+component like App.js (edit html code here.)
+
+----------------------------------------------------------------------------------------------
+Lecture 5 (Workflow of react app)
+
+index.js contains the main flow of app. We can import components here and can use it in the way we like.
+App.js is a functional component that returns JSX(JS+HTML). 
+index.js and App.js contains only one parent <div className="App"></div> and everything comes in that div becuase JSX should be one div to return.
+
+----------------------------------------------------------------------------------------------
+Lecture 6 (What are React components)
+components are independent and reusable code.
+components are js files.
+same like js function.
+returns an html via render function.
+Types:
+1) Class based component.
+2) Functional component.
+
+----------------------------------------------------------------------------------------------
+Lecture 7 (React JS Functional vs Class Components)
+Class based works with ES6 class that contains object states
+It may recieve prop
+and retuurns HTML(JSX)
+-------------Class component-----------
+1)create Components folder in src
+2)Create Person.js in it. It will be our class component.
+3)Install react extension pack.  (also tabnine extension for autocompletion.)
+>imrc   //to import React and component from react.
+>ccc     //to get code of class component with constructor.
+
+import React, { Component } from 'react';
+// use export before class now it's named class component (for calling)-> import {Person} from './Components/Person';
+export class Person extends Component             // it's named export now.
+{
+    constructor(props)
+    {
+        super(props);
+    }
+    //state = {  }
+    render()
+    { 
+        return (
+        <div>
+            <h3>Name: Hassan Raza.</h3>
+            <h3>Age: 23</h3>
+        </div>
+        );
+    }
+}
+// no need of this export now
+// export default Person;
+
+
+-------------Functional component-----------
+1)create Components folder in src
+2)Create Man.js in it. It will be our functional component.
+3)Install react extension pack.   (also tabnine extension for autocompletion.)
+>imr   //to import React from react.
+>ffc   //to get code of Functional componen.
+
+import React from 'react';
+// use export before class now it's named class component (for calling)-> import {Man} from './Components/Man';
+// it's named export now.
+// export function Man() {
+//     return (
+//     <div>
+//         <h3>Man Name: Ali Raza</h3>
+//         <h3>Age: 32</h3>
+//     </div>
+//     );
+// }
+
+//2nd way to write functional component.
+//>sfc (Stateless Function Component (Arrow function))
+export const Man = () => {
+    return (
+    <div>
+        <h3>Man Name: Ali Raza.</h3>
+        <h3>Age: 32</h3>
+    </div>
+    );
+}
+//no need of this export now
+// export default Man;
+
+----------------------------------------------------------------------------------------------
+Lecture 8 (What is JSX & Why use it in React)
+JSX = JS+XML. It also contains all html attributes.
+1) All tags must be closed
+like <img src="logo.png" alt="logo" />
+unlike <img src="logo.png" alt="logo">
+2)JSX should be in one parent div.
+
+Alternative to JSX is React.createElement(attributes) It's much more complex than JSX that's why it's not usualy used.
+Syntax: React.createElement(
+    'parent-node',
+    optional-properties|null,
+    'child-node'
+);
+
+export const Man = () => {
+    return (
+        // <div className='manStyle'>
+        //     <h3>Man Name: Ali Raza.</h3>
+        //     <h3><i>Age: 32</i></h3>
+        // </div>
+        React.createElement(                   //alternative of JSX
+            'div',
+            {class: 'manStyle'},
+            React.createElement(
+                'h3',
+                null,
+                'Man name: Ali Raza'
+            ),
+            React.createElement(
+                'h3',
+                null,
+                React.createElement(
+                    'i',
+                    null,
+                    'Age: 32'
+                )
+            )
+        )
+    );
+}
+As you can see how simple,easy and straight forward JSX is.
+
+
+----------------------------------------------------------------------------------------------
+Lecture 9 (React JS Props)
+1) React is a component based library that divides UI into little reusable pieces.
+2) Sometimes we need to send data between components. For this purpose we use props(abbreviation of properties).
+3) Main thing is that data is sent in a uni-directinal flow (parent to child).
+4) Child can use parents data but can't edit/update.
+5) props is an onject.
+
+--------------------------class component--------------------------
+export class Person extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.props=props;
+    }
+    //state = {  }
+    render()
+    { 
+        return (
+        <div className='App-header'>
+            <p className='ctr'>This is class component</p>
+            <h3>Name: {this.props.name}</h3>
+
+            {/* https://stackoverflow.com/questions/44046037/if-else-statement-inside-jsx-reactjs */}
+            {this.props.age!=null ? <h3>Age {this.props.age}</h3> : null}
+            
+            {/* <Man/> */}
+        </div>
+        );
+    }
+}
+
+//In index.js
+<Person name="Hassan Raza" age = {22} />
+<Person name="Abbas Ali" age= {21} />
+<Person name="M Rizwan" />
+
+--------------------------functional component--------------------------
+
+export function Man(props) {
+    return (
+    <div className='manStyle'>
+        <p>This is functional</p>
+        <h3>Man Name: {props.name}</h3>
+        <h3>Age: {props.age}</h3>
+    </div>
+    );
+}
+
+//2nd way to write functional component.
+//>sfc (Stateless Function Component (Arrow function))
+export const Man = (props) => {
+    return (
+        <div className='manStyle'>
+            <p>This is functional</p>
+            <h3>Man Name: {props.name}</h3>
+            <h3><i>Age: {props.age}</i></h3>
+        </div>
+    );
+}
+
+<Man name="Asad Ali" age={11}></Man>
+<Man name="Jawad Ali" age={12}></Man>
+<Man name="Kamran Abbas" age={13}></Man>
+
+----------------------------------------------------------------------------------------------
+Lecture 10 (What is State in React JS)
+1) state is built-in object in React component.
+2) state object is used to store all te data of particular component only.
+3) It is accessable only in the component it belongs to. It is changable only in that component.
+4) When state is changed component is re-rendered.
+5) To use state in class component we use {this.state}
+6) To use state in functional component we use "useState" hook.
+
+export class Person extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.props=props;
+        this.state={
+            name: 'somename',
+            age: 20
+        }
+    }
+    //state = {  }
+    chageStateHandler()
+    {
+        this.setState({name:'NewName',age:this.state.age+1},()=>{
+            console.log(this.state);
+            // alert(this.state.age);
+        });
+    }
+    render()
+    { 
+        return (
+        <div className='App-header'>
+            <p className='ctr'>This is class component</p>
+            <h3>Name: {this.state.name}</h3>
+            <h3>Age {this.state.age}</h3>
+            {/* <button onClick={this.chageStateHandler.bind(this)}>Change Data</button> */}
+            {/* same as above. It will channge only that component which is clicked. */}
+            <button onClick={()=>this.chageStateHandler()}>Change Data</button>
+            {/* <Man/> */}
+        </div>
+        );
+    }
+}
+
+----------------------------------------------------------------------------------------------
+Lecture 11 (Event handling with Method in React JS)
+
+------------------------(1st way)---------------------------
+using arrow opperator to bind this.
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  //arrow function is used to stop 'this' from rebinding
+  //now 'this' will be accessable here.
+  onClickHandler = () => {
+    alert("nice");
+    console.log(this.state);
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header>
+          <h1>This is my first react app.</h1>
+          <button onClick={this.onClickHandler}>Click me</button>
+        </header>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+------------------------(2nd way)---------------------------
+use inline arrow operator for binding
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  onClickHandler(){          //normal function
+    console.log(this.state);      
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header>
+          <h1>This is my first react app.</h1>
+          <button onClick={()=>this.onClickHandler()}>Click me</button>
+        </header>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+------------------------(3rd way)---------------------------
+use inline bind function for binding of this
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  onClickHandler(){          //normal function
+    console.log(this.state);      
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header>
+          <h1>This is my first react app.</h1>
+          <button onClick={this.onClickHandler.bind(this)}>Click me</button>
+        </header>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+------------------------(4th way)---------------------------
+use constructor for binding of this
+
+use inline bind function for binding of this
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.onClickHandler = this.onClickHandler.bind(this)
+  }
+
+  onClickHandler(){          //normal function
+    console.log(this.state);
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header>
+          <h1>This is my first react app.</h1>
+          <button onClick={this.onClickHandler}>Click me</button>
+        </header>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+----------------------------------------------------------------------------------------------
+Lecture 12 (How to Add CSS to React Component)
+
+1)
+create .css files and include in the component.js file.
+don't use class. It works but give warning.
+Try to use className.
+This className or styling in .css can be used in any other component as well.
+
+2) Inline css
+There are 2 ways for Inline css both are implemented in following example.
+
+import './Person.css';
+export class Person extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.props=props;
+        this.state={};
+    }
+    render()
+    { 
+        const nameStyle={
+            textDecoration: "underline",
+            fontStyle: "italic"
+        }
+        return (
+            <div className='App-header'>
+                <p className='ctr'>This is class component</p>
+                <h3><span style={nameStyle}>Name:</span> {this.state.name}</h3>
+                <h3><span style={{textDecoration: "underline", fontStyle: "italic"}}>Age:</span> {this.state.age}</h3>
+            </div>
+        );
+    }
+}
+
+----------------------------------------------------------------------------------------------
+Lecture 13 (Module Style for a Component)
+If you want that styling is for just particular component.
+
+Step 1)
+Rename 'Person.css' to 'Person.module.css'
+
+Step 2)
+import PersonStyle from './Person.module.css';   //now css is just for Person.js
+
+export class Person extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.props=props;
+        this.state={};
+    }
+    render()
+    { 
+        const nameStyle={
+            textDecoration: "underline",
+            fontStyle: "italic"
+        }
+        return (
+        <div className={PersonStyle.Appheader}>
+            <p className={PersonStyle.ctr}>This is class component</p>
+            <h3><span style={nameStyle}>Name:</span> {this.state.name}</h3>
+            <h3><span style={{textDecoration: "underline", fontStyle: "italic"}}>Age:</span> {this.state.age}</h3>
+            <button className={PersonStyle.btn} onClick={()=>this.chageStateHandler()}> Change Data </button>
+        </div>
+        );
+    }
+}
+
+----------------------------------------------------------------------------------------------
+Lecture 14 (what is AXiOS & How to use it with React JS)
+
+AXiOS is npm package.
+axios is used to make GET, POST request from external url.
+We can hit external url using it. 
+It makes XMLHttpRequest much more easy and short code.
+visit:  https://www.npmjs.com/package/axios
+PS C:\Users\DELL\Desktop\React\myapp> npm install axios --s  //install axios locally and check version in package.json
+go to https://jsonplaceholder.typicode.com/ to get 'post' or 'get' urls.
+
+----------------------------------------------------------------------------------------------
+Lecture 15 (Redux Flow. What is Redux and how it works)
+
+Redus Flow:
+Central store is used to store state.
+Central Space => triggers => Subscription => passes updated state as prop => Component =>
+component (wants to mutate(change) state) => dispatches (triggers) => Action => Reaches => Reducers => Updates => Central Store.
+
+----------------------------------------------------------------------------------------------
+Lecture 16 (How to Render List in React Component)
+
+-------------------1st way-------------------
+put a list in state and access the list in component call. 
+It's a complex method if list.size>200. We just cant write code for every component call.
+
+Syntax:
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      person: [
+        {
+          name:"Hassan",
+          age:21
+        },
+        {
+          name:"Hussain",
+          age:22
+        },
+        {
+          name:"Jawad",
+          age:19
+        },
+        {
+          name:"Abbas",
+          age:15
+        }
+      ]
+    };
+    this.onClickHandler = this.onClickHandler.bind(this)
+  }
+
+  onClickHandler(){          //normal function
+    alert("Welcome to my first react app.");
+    console.log(this.state);      
+  }
+  render() {
+    return (
+      <div className="App">
+        <header>
+          <h1>This is my first react app.</h1>
+          <button className='myBtn' onClick={this.onClickHandler}>Click me</button>
+          <Person name={this.state.person[0].name} age={this.state.person[0].age}></Person>
+          <Person name={this.state.person[1].name} age={this.state.person[1].age}></Person>
+          <Person name={this.state.person[2].name} age={this.state.person[2].age}></Person>
+          <Person name={this.state.person[3].name} age={this.state.person[3].age}></Person>
+        </header>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+-------------------2nd way-------------------
+Using Array Map method.
+
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      person: [
+        {
+          name:"Hassan",
+          age:21
+        },
+        {
+          name:"Hussain",
+          age:22
+        },
+        {
+          name:"Jawad",
+          age:19
+        }
+      ]
+    };
+    this.onClickHandler = this.onClickHandler.bind(this)
+  }
+
+  onClickHandler(){          //normal function
+    alert("Welcome to my first react app.");
+    console.log(this.state);      
+  }
+
+  render() {
+    let persons;
+    persons = this.state.person.map((p)=>{
+      return <Person name={p.name} age={p.age}></Person>
+    });
+    return (
+      <div className="App">
+        <header>
+          <h1>This is my first react app.</h1>
+          <button className='myBtn' onClick={this.onClickHandler}>Click me</button>
+          {persons}
+        </header>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+----------------------------------------------------------------------------------------------
+Lecture 17 (What is Key Prop in React JS)
+
+Key prop is used to compare virtual DOM and with actual DOM and works for the changes where it needed.
+Key prop is not accessable by child component.
+key prop is used for uniqueness in props.
+If(not(keySet)){ Warning: Each child in a list should have a unique "key" prop. }
+
+
+---------------------1) If we are getting id from db---------------------
+
+//key prop is not accessable but id prop is accessablec in child component.
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      person: [
+        {
+          id: 1,
+          name:"Hassan",
+          age:21
+        },
+        {
+          id: 2,
+          name:"Hussain",
+          age:22
+        },
+        {
+          id: 3,
+          name:"Jawad",
+          age:19
+        }
+      ]
+    };
+    this.onClickHandler = this.onClickHandler.bind(this)
+  }
+
+  onClickHandler(){          //normal function
+    alert("Welcome to my first react app.");
+    console.log(this.state);      
+  }
+
+  render() {
+    let persons;
+    persons = this.state.person.map((p)=>{
+      return <Person key={p.id} id={p.id} name={p.name} age={p.age}></Person>
+    });
+    return (
+      <div className="App">
+        <header>
+          <h1>This is my first react app.</h1>
+          <button className='myBtn' onClick={this.onClickHandler}>Click me</button>
+          {persons}
+        </header>
+      </div>
+    );
+  }
+}
+export default App;
+
+
+---------------------2) Getting uniqe key from map method---------------------
+
+//using map method to create unique keys for us.
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      person: [
+        {
+          name:"Hassan",
+          age:21
+        },
+        {
+          name:"Hussain",
+          age:22
+        },
+        {
+          name:"Jawad",
+          age:19
+        }
+      ]
+    };
+    this.onClickHandler = this.onClickHandler.bind(this)
+  }
+
+  onClickHandler(){          //normal function
+    alert("Welcome to my first react app.");
+    console.log(this.state);      
+  }
+
+  render() {
+    let persons;
+    persons = this.state.person.map((p,index)=>{
+      return <Person key={++index} id={++index} name={p.name} age={p.age}></Person>
+    });
+    return (
+      <div className="App">
+        <header>
+          <h1>This is my first react app.</h1>
+          <button className='myBtn' onClick={this.onClickHandler}>Click me</button>
+          {persons}
+        </header>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+----------------------------------------------------------------------------------------------
+Lecture 18 (How to Render Data Conditional in React Component)
+
+-----------1st way-------------
+//uusing ternary operator.
+
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      person: [
+        {
+          name:"Hassan",
+          age:21
+        },
+        {
+          name:"Hussain",
+          age:22
+        },
+        {
+          name:"Jawad",
+          age:19
+        }
+      ],
+      isShow: true
+    };
+    this.toggleHandler = this.toggleHandler.bind(this);
+  }
+
+  // toggleHandler(){          //normal function
+  //   if(this.state.isShow===true)
+  //   {
+  //     this.setState({isShow: false},()=>{
+  //       console.log(this.state);
+  //       // alert(this.state.age);
+  //     });
+  //   }
+  //   else
+  //   {
+  //     this.setState({isShow: true},()=>{
+  //       console.log(this.state);
+  //       // alert(this.state.age);
+  //     });
+  //   } 
+  // }
+
+  //same as above.
+  toggleHandler(){          //normal function
+    this.setState({isShow: !this.state.isShow});
+  }
+
+
+  render() {
+    let persons;
+    persons = this.state.person.map((p,index)=>{
+      return <Person key={++index} id={++index} name={p.name} age={p.age}></Person>
+    });
+    return (
+      <div className="App">
+        <header>
+          <h1>This is my first react app.</h1>
+          <br />
+          <button className='myBtn' onClick={this.toggleHandler}>Toggle</button>
+          { this.state.isShow===true? persons : null}
+        </header>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+---------------------2nd way--------------------
+//using if else statement.
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      person: [
+        {
+          name:"Hassan",
+          age:21
+        },
+        {
+          name:"Hussain",
+          age:22
+        },
+        {
+          name:"Jawad",
+          age:19
+        }
+      ],
+      isShow: true
+    };
+    this.toggleHandler = this.toggleHandler.bind(this);
+  }
+
+  // toggleHandler(){          //normal function
+  //   if(this.state.isShow===true)
+  //   {
+  //     this.setState({isShow: false},()=>{
+  //       console.log(this.state);
+  //       // alert(this.state.age);
+  //     });
+  //   }
+  //   else
+  //   {
+  //     this.setState({isShow: true},()=>{
+  //       console.log(this.state);
+  //       // alert(this.state.age);
+  //     });
+  //   } 
+  // }
+
+  //same as above
+  toggleHandler(){          //normal function
+    this.setState({isShow: !this.state.isShow});
+  }
+
+  render() {
+    let persons;
+    if(this.state.isShow===true)
+    {
+      persons = this.state.person.map((p,index)=>{
+        return <Person key={++index} id={++index} name={p.name} age={p.age}></Person>
+      });
+    }
+    else
+    {
+      persons="";
+    }
+    return (
+      <div className="App">
+        <header>
+          <h1>This is my first react app.</h1>
+          <button className='myBtn' onClick={this.toggleHandler}>Toggle</button>
+          {persons}
+        </header>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+----------------------------------------------------------------------------------------------
+Lecture 19 (How to Delete Data From the State in React JS)
+
+//App.js (Parent component)
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      person: [
+        {
+          name:"Hassan",
+          age:21
+        },
+        {
+          name:"Hussain",
+          age:22
+        },
+        {
+          name:"Jawad",
+          age:19
+        }
+      ],
+      isShow: true
+    };
+  }
+
+  removeData = (personIndex) =>
+  {
+    const newpersons = this.state.person;
+    newpersons.splice(personIndex,1);
+    this.setState({person: newpersons});
+  }
+
+  render() {
+    let persons;
+    if(this.state.isShow===true)
+    {
+      persons = this.state.person.map((p,index)=>{
+        return <Person key={index} id={index} name={p.name} age={p.age} remove={()=>this.removeData(index)}></Person>
+      });
+    }
+    else
+    {
+      persons="";
+    }
+    return (
+      <div className="App">
+        <header>
+          <h1>This is my first react app.</h1>
+          {persons}
+        </header>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+------------------------------------------
+// Person.js (child Component)
+//must use props to show data.
+
+export class Person extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.props=props;
+        this.state={
+            name: this.props.name,
+            age: this.props.age
+        };
+    }
+    render()
+    { 
+        const nameStyle={
+            textDecoration: "underline",
+            fontStyle: "italic"
+        }
+        return (
+        <div className={PersonStyle.AppHeader}>
+            <p className={PersonStyle.ctr}>This is class component</p>
+            {
+                this.props.id!=null?
+                <p>{this.props.id+1}</p>
+                :null
+            }
+            <h3><span style={nameStyle}>Name:</span> {this.props.name}</h3>
+            {
+                this.props.age!=null?
+                <div>
+                    <h3><span style={{textDecoration: "underline", fontStyle: "italic"}}>Age:</span> {this.props.age}</h3>
+                </div> 
+                :null
+            }
+            {
+                this.props.remove!=null?
+                <button className={PersonStyle.btn} onClick={this.props.remove}> Delete </button>
+                :null
+            }
+        </div>
+        );
+    }
+}
+
+----------------------------------------------------------------------------------------------
+Lecture 20 (Handling the form inputs in React JS)
+
+class Form extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: "",
+            country: ""
+        };
+    }
+
+    KeyUpHandler = (event) =>{
+        console.log(event.target.value);
+    }
+    SelectHandler = (event) =>{
+        console.log(event.target.value);
+    }
+    submitHandler = (event) =>{
+        event.preventDefault();
+        console.log(this.state);
+        const newname = event.target.name.value;
+        const newcouuntry = event.target.country.value;
+        this.setState({name: newname, country: newcouuntry},()=>{
+            console.log(this.state);
+            // form reseting
+            event.target.name.value="";
+            event.target.country.value="1";    
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.submitHandler}>
+                    <div>
+                        <label htmlFor="name">Name: </label>
+                        <input id="name" type="text" name="name" onKeyUp={this.KeyUpHandler} />
+                    </div>
+                    <div>
+                        <label htmlFor="name">Country: </label>
+                        <select name="country" onClick={this.SelectHandler}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="submit" value="Submit" />
+                    </div>
+                </form>
+            </div>
+        );
+    }
+}
+
+export default Form;
+
+-----------------------------------------------------------------
+Lecture 21 (Form Handling using Controlled Components in React JS)
+
+Input  triggers => EventHandler => setState => puts value in Input.
+//If you want any value to be shown in Input field. You have to use controlled component.
+//For it use value={this.state.name} in your input.
+//and in constructor give default value in state like this.state{name:"Hassan Raza"};
+//and use onChange handler to shange state every time something entered in .
+
+class ControlledComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: "Hassan Raza",
+            country: "Pakistan"
+        };
+    }
+
+    nameChangeHandler = (event) =>{
+        console.log(event.target.value);
+        const newname = event.target.value;
+        this.setState({name: newname});
+    }
+    countryChangeHandler = (event) =>{
+        console.log(event.target.value);
+        const newcountry = event.target.value;
+        this.setState({country: newcountry});
+    }
+
+    submitHandler = (event) =>{
+        event.preventDefault();
+        console.log(this.state);
+        const newname = event.target.name.value;
+        const newcouuntry = event.target.country.value;
+        this.setState({name: newname, country: newcouuntry},()=>{
+            console.log(this.state);
+            // form reseting
+            // event.target.name.value="";
+            // event.target.country.value="";    
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.submitHandler}>
+                    <div>
+                        <label htmlFor="name">Name: </label>
+                        <input id="name" type="text" name="name" value={this.state.name} onChange={this.nameChangeHandler} />
+                    </div>
+                    <div>
+                        <label htmlFor="country">Country: </label>
+                        <input id="country" type="text" name="country" value={this.state.country} onChange={this.countryChangeHandler} />
+                    </div>
+                    <div>
+                        <input type="submit" value="Submit" />
+                    </div>
+                </form>
+            </div>
+        );
+    }
+}
+
+export default ControlledComponent;
+
+-----------------------------------------------------------------
+Lecture 22 (How to Create Registration form using Greeting Screen)
+
+//App.js
+import React, { Component } from 'react';
+import './App.css';
+import Register from './Components/Register/Register';
+import Greet from './Components/Greet/Greet';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isRegistered : false,
+      name:null,
+      email:null,
+      password:null
+    };
+  }
+  submitHandler = (event) =>{
+    event.preventDefault();
+    // alert("submited");
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    this.setState({name, email, password, isRegistered: true});
+  };
+
+  render() {
+    return (
+      <div>
+        {
+          this.state.isRegistered ? 
+          <Greet name={this.state.name} email={this.state.email} /> 
+          :
+          <Register submit={this.submitHandler} />
+        }
+      </div>
+    );
+  }
+}
+
+export default App;
+
+----------------------------------------
+//Register.js
+
+import React from 'react';
+import './Register.css';
+
+function Register(props) {
+    return ( 
+        <div className="container card p-3 mt-3 registerStyle">
+            <h1 className="text-center">Registeration form</h1>
+            <form onSubmit={props.submit}>
+                <div className="form-group">
+                    <label htmlFor="name">Name: </label>
+                    <input className="form-control" id="name" type="text" name="name" required />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">Email: </label>
+                    <input className="form-control" id="email" type="email" name="email" required/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password: </label>
+                    <input className="form-control" id="password" type="password" name="password" required/>
+                </div>
+                <br />
+                <button className="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+     );
+}
+
+export default Register;
+
+----------------------------------------
+//Register.css
+
+.registerStyle{
+    width: 500px !important;
+}
+
+----------------------------------------
+//Greet.js
+
+import React from 'react';
+
+function Greet(props) {
+    return ( 
+        <div className="container card p-3 mt-3 registerStyle text-center">
+            <h1 className="text-uppercase">{props.name},</h1>
+            <p>Thank you for joining us.</p>
+            <p>Verification code has been sent to the following email address.</p>
+            <p>{props.email}</p>
+        </div>
+     );
+}
+
+export default Greet;
+
+-----------------------------------------------------------------
+Lecture 23 (Show & Hide Password along with Dynamic Style)
+
+----------------
+//App.js
+
+import React, { Component } from 'react';
+import './App.css';
+import Register from './Components/Register/Register';
+import Greet from './Components/Greet/Greet';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isRegistered : false,
+      name:null,
+      email:null,
+      password:null,
+      showPassword: false
+    };
+  }
+
+  submitHandler = (event) =>{
+    event.preventDefault();
+    // alert("submited");
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    this.setState({name, email, password, isRegistered: true});
+  };
+
+  showPasswordHandler = () =>{
+    this.setState({showPassword: !this.state.showPassword});
+  };
+
+  render() {
+    return (
+      <div>
+        {
+          this.state.isRegistered ? 
+          <Greet name={this.state.name} email={this.state.email} /> 
+          :
+          <Register submit={this.submitHandler} click={this.showPasswordHandler} showPassword={this.state.showPassword}/>
+        }
+      </div>
+    );
+  }
+}
+
+export default App;
+
+----------------
+//Register.js
+
+import React from 'react';
+import './Register.css';
+
+function Register(props) {
+    const btnStyle = {
+        backgroundColor: "green",
+        color: "white",
+        innerText: "Show Password",
+        passType: "password"
+    };
+
+    if(props.showPassword === true)
+    {
+        btnStyle.backgroundColor = "red";
+        btnStyle.innerText = "Hide Password";
+        btnStyle.passType = "text";
+    }
+    else     //no need of this else code btw.
+    {
+        btnStyle.backgroundColor = "green";
+        btnStyle.innerText = "Show Password";
+        btnStyle.passType = "password";
+    }
+
+
+    return ( 
+        <div className="container card p-3 mt-3 registerStyle">
+            <h1 className="text-center">Registeration form</h1>
+            <form onSubmit={props.submit}>
+                <div className="form-group">
+                    <label htmlFor="name">Name: </label>
+                    <input className="form-control" id="name" type="text" name="name" required />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">Email: </label>
+                    <input className="form-control" id="email" type="email" name="email" required/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password: </label>
+                    <input className="form-control" id="password" type={btnStyle.passType} name="password" required/>
+                </div>
+                <button className="btn btn-primary mt-3 me-2" type="submit">Submit</button>
+                <button className="btn mt-3 me-2" type="button" style={btnStyle} onClick={props.click}>{btnStyle.innerText}</button>
+            </form>
+        </div>
+     );
+}
+
+export default Register;
+
+----------------
+//Register.css
+
+.registerStyle{
+    width: 500px !important;
+}
+
+----------------
+//Greet.js
+
+import React from 'react';
+
+function Greet(props) {
+    return ( 
+        <div className="container card p-3 mt-3 registerStyle text-center">
+            <h1 className="text-uppercase">{props.name},</h1>
+            <p>Thank you for joining us.</p>
+            <p>Verification code has been sent to the following email address.</p>
+            <p>{props.email}</p>
+        </div>
+     );
+}
+
+export default Greet;
+
+-----------------------------------------------------------------
+Lecture 24 (How to Add CSS Classes Dynamically in React JS)
+
+step 1)
+for it we need to specify an array of classArray and specify all reqired classes in it.
+
+Step 2)
+const classArray=["btn","mt-3","me-2"];
+if you want dynamic class in it you have to use if else for it to check.
+if(props.showPassword === true)
+{
+	btnStyle.innerText = "Hide Password";
+	btnStyle.passType = "text";
+	classArray.push("btn-danger");
+}
+else
+{
+	btnStyle.innerText = "Show Password";
+	btnStyle.passType = "password";
+	classArray.push("btn-success");
+}
+
+Step 3)
+use this array in className like:  //join is used to convert array into string and separate by parameter 
+className={classArray.join(" ")}
+
+-------------------------
+//App.js 
+
+import React, { Component } from 'react';
+import './App.css';
+import Register from './Components/Register/Register';
+import Greet from './Components/Greet/Greet';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isRegistered : false,
+      name:null,
+      email:null,
+      password:null,
+      showPassword: false
+    };
+  }
+
+  submitHandler = (event) =>{
+    event.preventDefault();
+    // alert("submited");
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    this.setState({name, email, password, isRegistered: true});
+  };
+
+  showPasswordHandler = () =>{
+    this.setState({showPassword: !this.state.showPassword});
+  };
+
+  render() {
+    return (
+      <div>
+        {
+          this.state.isRegistered ? 
+          <Greet name={this.state.name} email={this.state.email} /> 
+          :
+          <Register submit={this.submitHandler} click={this.showPasswordHandler} showPassword={this.state.showPassword}/>
+        }
+      </div>
+    );
+  }
+}
+
+export default App;
+
+-------------------------
+//Register.js 
+
+import React from 'react';
+import './Register.css';
+
+function Register(props) {
+    const classArray=["btn","mt-3","me-2"];
+    const btnStyle = {
+        // backgroundColor: "green",
+        color: "white",
+        innerText: "Show Password",
+        passType: "password"
+    };
+
+    if(props.showPassword === true)
+    {
+        // btnStyle.backgroundColor = "red";
+        btnStyle.innerText = "Hide Password";
+        btnStyle.passType = "text";
+        classArray.push("btn-danger");
+    }
+    else
+    {
+        // btnStyle.backgroundColor = "green";
+        btnStyle.innerText = "Show Password";
+        btnStyle.passType = "password";
+        classArray.push("btn-success");
+    }
+
+    //console.log(classArray);
+
+	//join is used to convert array into string and separate by parameter.
+    //console.log(classArray.join(" "));
+
+    return ( 
+        <div className="container card p-3 mt-3 registerStyle">
+            <h1 className="text-center">Registeration form</h1>
+            <form onSubmit={props.submit}>
+                <div className="form-group">
+                    <label htmlFor="name">Name: </label>
+                    <input className="form-control" id="name" type="text" name="name" required />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">Email: </label>
+                    <input className="form-control" id="email" type="email" name="email" required/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password: </label>
+                    <input className="form-control" id="password" type={btnStyle.passType} name="password" required/>
+                </div>
+                <button className="btn btn-primary mt-3 me-2" type="submit">Submit</button>
+                <button className={classArray.join(" ")} type="button" style={btnStyle} onClick={props.click}>{btnStyle.innerText}</button>
+            </form>
+        </div>
+     );
+}
+
+export default Register;
+
+-------------------------
+//Register.css
+
+.registerStyle{
+    width: 500px !important;
+}
+
+-------------------------
+//Greet.js 
+
+import React from 'react';
+
+function Greet(props) {
+    return ( 
+        <div className="container card p-3 mt-3 registerStyle text-center">
+            <h1 className="text-uppercase">{props.name},</h1>
+            <p>Thank you for joining us.</p>
+            <p>Verification code has been sent to the following email address.</p>
+            <p>{props.email}</p>
+        </div>
+     );
+}
+
+export default Greet;
+
+-----------------------------------------------------------------
+Lecture 25 (Styled Component Library in React JS)
+
+Visit: https://styled-components.com/
+
+Installing styled-components only takes a single command and you're ready to roll:
+get Styled Component npm command from here: https://styled-components.com/docs/basics
+
+import React from 'react';
+import './Register.css';
+import Styled from 'styled-components';
+import raza from './raza.png';
+
+ //it's a component(styled)
+const StyledButton = Styled.button`
+    display: inline-block;
+    color: white;
+    background-color: blue;
+    margin-top: 13px;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    padding: 10px 5px;
+`;
+
+const StyledImg = Styled.img`
+    width: 100%;
+    border: 1px solid grey;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px;
+`;
+
+function Register(props) {
+    const classArray=["btn","mt-3","me-2"];
+    const btnStyle = {
+        // backgroundColor: "green",
+        color: "white",
+        innerText: "Show Password",
+        passType: "password"
+    };
+
+    if(props.showPassword === true)
+    {
+        // btnStyle.backgroundColor = "red";
+        btnStyle.innerText = "Hide Password";
+        btnStyle.passType = "text";
+        classArray.push("btn-danger");
+    }
+    else
+    {
+        // btnStyle.backgroundColor = "green";
+        btnStyle.innerText = "Show Password";
+        btnStyle.passType = "password";
+        classArray.push("btn-success");
+    }
+
+    return ( 
+        <div className="container card p-3 mt-3 registerStyle">
+            <h1 className="text-center">Registeration form</h1>
+            <form onSubmit={props.submit}>
+                <StyledImg src= {raza} alt="Raza logo"/>
+                <div className="form-group">
+                    <label htmlFor="name">Name: </label>
+                    <input className="form-control" id="name" type="text" name="name" required />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">Email: </label>
+                    <input className="form-control" id="email" type="email" name="email" required/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password: </label>
+                    <input className="form-control" id="password" type={btnStyle.passType} name="password" required/>
+                </div>
+                <button className="btn btn-primary mt-3 me-2" type="submit">Submit</button>
+                <button className={classArray.join(" ")} type="button" style={btnStyle} onClick={props.click}>{btnStyle.innerText}</button>
+                <StyledButton type="reset">Reset</StyledButton>
+            </form>
+        </div>
+     );
+}
+
+export default Register;
+
+-----------------------------------------------------------------
+Lecture 26 (Implementing Media Query and Hover using Styled Component)
+
+import React from 'react';
+import './Register.css';
+import Styled from 'styled-components';
+import raza from './raza.png';
+
+ //it's a component(styled)
+const StyledButton = Styled.button`
+    display: inline-block;
+    color: white;
+    background-color: blue;
+    margin-top: 13px;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    padding: 10px 5px;
+`;
+
+const StyledImg = Styled.img`
+    width: 100%;
+    border: 1px solid grey;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px;
+`;
+
+const StyledDiv = Styled.div`
+    width: 500px;
+    &:hover{
+        box-shadow: 0 0 5px;
+    }
+    @media screen and (max-width: 550px) {
+        width: 300px;
+    }
+`;
+
+function Register(props) {
+    const classArray=["btn","mt-3","me-2"];
+    const btnStyle = {
+        // backgroundColor: "green",
+        color: "white",
+        innerText: "Show Password",
+        passType: "password"
+    };
+
+    if(props.showPassword === true)
+    {
+        // btnStyle.backgroundColor = "red";
+        btnStyle.innerText = "Hide Password";
+        btnStyle.passType = "text";
+        classArray.push("btn-danger");
+    }
+    else
+    {
+        // btnStyle.backgroundColor = "green";
+        btnStyle.innerText = "Show Password";
+        btnStyle.passType = "password";
+        classArray.push("btn-success");
+    }
+
+    //join is used to convert array into string separated by given parameter.
+    // console.log(classArray.join(" "));
+
+    return ( 
+        <StyledDiv className="container card p-3 mt-3">
+            <h1 className="text-center">Registeration form</h1>
+            <form onSubmit={props.submit}>
+                <StyledImg src= {raza} alt="Raza logo"/>
+                <div className="form-group">
+                    <label htmlFor="name">Name: </label>
+                    <input className="form-control" id="name" type="text" name="name" required />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">Email: </label>
+                    <input className="form-control" id="email" type="email" name="email" required/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password: </label>
+                    <input className="form-control" id="password" type={btnStyle.passType} name="password" required/>
+                </div>
+                <button className="btn btn-primary mt-3 me-2" type="submit">Submit</button>
+                <button className={classArray.join(" ")} type="button" style={btnStyle} onClick={props.click}>{btnStyle.innerText}</button>
+                <StyledButton type="reset">Reset</StyledButton>
+            </form>
+        </StyledDiv>
+     );
+}
+
+export default Register;
+
+-----------------------------------------------------------------
+Lecture 27 (How to Set up the Environment for Firebase with React JS)
+
+Firbase is used to manage apps and also used for (easy)backend develoment.
+
+visit: https://firebase.google.com/   (for details)
+
+step 1)
+goto: https://console.firebase.google.com/ 
+
+step 2)
+create new project.
+
+step 3)
+visit package from https://www.npmjs.com/package/uuid
+This package is used to create unique id for the data.
+
+step 4)
+Click on web icon (</>) on firebase and create app.
+
+step 5)
+if (working on html static pages)
+{
+	use SDK(scripts code given after creating web app.).
+}
+else
+{
+	Install packages:
+	cmd myapp>npm install --save firebase
+	cmd myapp>npm install --save uuid
+
+	also check package versions in package.json
+}
+
+step 6)
+Create new database.
+This db is non relation(can store key value pairs in it.) just like mongo db.
+
