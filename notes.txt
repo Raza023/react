@@ -291,6 +291,28 @@ export class Person extends Component
     }
 }
 
+Functional Component:
+import React, { useState } from 'react';
+export const Man = (props) => {
+    // Define a state variable 'age' and its setter function 'setAge'
+    const [age, setAge] = useState(props.age);
+
+    // Function to increment the age
+    const incrementAge = () => {
+        setAge(age + 1);
+    };
+
+    return (
+        <div>
+            <h3>name: {props.name}</h3>
+            <p>
+                Age: {age > 0 && age !== null ? <span>{age}</span> : null}
+                <button onClick={incrementAge}>Increment Age</button>
+            </p>
+        </div>
+    );
+}
+
 ----------------------------------------------------------------------------------------------
 Lecture 11 (Event handling with Method in React JS)
 
