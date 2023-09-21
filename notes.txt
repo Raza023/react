@@ -250,7 +250,7 @@ export const Man = (props) => {
 ----------------------------------------------------------------------------------------------
 Lecture 10 (What is State in React JS)
 1) state is built-in object in React component.
-2) state object is used to store all te data of particular component only.
+2) state object is used to store all the data of particular component only.
 3) It is accessable only in the component it belongs to. It is changable only in that component.
 4) When state is changed component is re-rendered.
 5) To use state in class component we use {this.state}
@@ -548,6 +548,8 @@ It makes XMLHttpRequest much more easy and short code.
 visit:  https://www.npmjs.com/package/axios
 PS C:\Users\DELL\Desktop\React\myapp> npm install axios --s  //install axios locally and check version in package.json
 go to https://jsonplaceholder.typicode.com/ to get 'post' or 'get' urls.
+
+import axios from 'axios';                             //for making GET,POST,PUT and DELETE requests.
 
 ----------------------------------------------------------------------------------------------
 Lecture 15 (Redux Flow. What is Redux and how it works)
