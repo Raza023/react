@@ -1749,6 +1749,13 @@ else
 	Install packages:
 	cmd myapp>npm install --save firebase
 	cmd myapp>npm install --save uuid
+	//for react-bootstrap install 
+	cmd myapp>npm install react-bootstrap
+	//for bootstrap install
+	cmd myapp>npm install bootstrap
+
+	import 'bootstrap/dist/css/bootstrap.min.css'; // Add this line in src/index.js to use bootstrap
+
 
 	also check package versions in package.json
 }
